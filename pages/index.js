@@ -5,6 +5,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { MicrophoneIcon } from '@heroicons/react/24/solid';
 
 export default function Home() {
+  const yearNow = new Date().getFullYear();
   return (
     <>
       <Header />
@@ -26,6 +27,7 @@ export default function Home() {
           </div>
         </section>
       </main>
+      <footer className='fixed bottom-0 left-0 w-full text-center '>Copyright &copy; {yearNow} Jun Choi</footer>
     </>
   );
 }
