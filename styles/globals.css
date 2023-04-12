@@ -9,4 +9,10 @@
   .btn{
     @apply bg-gray-100 p-3 rounded-md text-sm text-gray-800 hover:ring-1 hover:ring-gray-200 focus:outline-none active:ring-gray-300
   }
+  .nav-link{
+    @apply text-gray-700 text-sm cursor-pointer flex items-center gap-1
+  }
+  .nav-link-active{
+    @apply text-blue-500 text-sm cursor-pointer flex items-center gap-1
+  }
 }

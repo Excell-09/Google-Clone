@@ -13,14 +13,13 @@ export default function Home() {
   const search = (e) => {
     e.preventDefault();
     const searchInput = searchInputRef.current.value;
-    router.push(`/search?term=${searchInput.trim()}`);
+    router.push(`/search?q=${searchInput.trim()}`);
   };
   const searchEnter = (e) => {
     if (e.key === 'Enter') {
       const searchInput = searchInputRef.current.value;
-      router.push(`/search?term=${searchInput.trim()}`);
+      router.push(`/search?q=${searchInput.trim()}&searchType=`);
     }
-    return;
   };
 
   return (
@@ -37,6 +36,7 @@ export default function Home() {
               <input
                 ref={searchInputRef}
                 type='text'
+                placeholder='Search'
                 className=' flex-1 focus:outline-none max-w-[90%]'
                 onKeyDown={searchEnter}
               />
