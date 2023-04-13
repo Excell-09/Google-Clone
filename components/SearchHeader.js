@@ -10,12 +10,13 @@ import {
 import User from './User';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import SearchHeaderOption from './SearchHeaderOptions';
 import SearchHeaderOptions from './SearchHeaderOptions';
+import { useEffect } from 'react';
 
 const SearchHeader = ({ queryValue }) => {
   const [query, setQuery] = useState(queryValue.q || '');
   const router = useRouter();
+  useEffect(() => setQuery(queryValue.q || ''), [queryValue]);
   const handleEnter = (e) => {
     if (e.key === 'Enter') {
       router.push(`/search?q=${query.trim()}&searchType=`);
