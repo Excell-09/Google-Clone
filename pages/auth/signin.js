@@ -6,7 +6,6 @@ import logo from '@/public/google-logo.webp';
 import logoG from '@/public/g-logo.webp';
 
 const signin = ({ provider }) => {
-  console.log(Object.values(provider));
   return (
     <>
       <Header />

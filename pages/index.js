@@ -5,20 +5,35 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { MicrophoneIcon } from '@heroicons/react/24/solid';
 import { useRef } from 'react';
 import { useRouter } from 'next/router';
+import randomWord from '@/utils/randomWord';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { dummyResponse } from '@/dummyData';
 
 export default function Home() {
   const yearNow = new Date().getFullYear();
   const searchInputRef = useRef();
   const router = useRouter();
+  const [randomW, setRandomW] = useState('Google');
+
+  useEffect(() => {
+    randomWord((res) => setRandomW(res));
+  }, []);
+
+
   const search = (e) => {
     e.preventDefault();
     const searchInput = searchInputRef.current.value;
-    router.push(`/search?q=${searchInput.trim()}`);
+    if (searchInput) {
+      router.push(`/search?q=${searchInput.trim()}&searchType=&start=10`);
+    } else {
+      router.push(`/search?q=${randomW}&searchType=&start=10`);
+    }
   };
   const searchEnter = (e) => {
     if (e.key === 'Enter') {
       const searchInput = searchInputRef.current.value;
-      router.push(`/search?q=${searchInput.trim()}&searchType=`);
+      router.push(`/search?q=${searchInput.trim()}&searchType=&start=10`);
     }
   };
 
@@ -37,6 +52,7 @@ export default function Home() {
                 ref={searchInputRef}
                 type='text'
                 placeholder='Search'
+                maxLength={2048}
                 className=' flex-1 focus:outline-none max-w-[90%]'
                 onKeyDown={searchEnter}
               />
@@ -47,7 +63,9 @@ export default function Home() {
             <button onClick={search} className='btn'>
               Google Search
             </button>
-            <button className='btn'>{"I'm Feeling Lucky"}</button>
+            <button className='btn'>
+              <a href='https://www.google.com/doodles'>{"I'm Feeling Lucky"}</a>
+            </button>
           </div>
         </section>
       </main>

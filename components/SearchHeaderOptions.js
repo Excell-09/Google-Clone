@@ -5,10 +5,10 @@ import React from 'react';
 const SearchHeaderOptions = ({ searchType, queryType }) => {
   const router = useRouter();
   const switchSearchType = () => {
-    router.push(`/search?q=${queryType}&searchType=${searchType === '' ? 'image' : ''}`);
+    router.push(`/search?q=${queryType}&searchType=${searchType === '' ? 'image' : ''}&start=10`);
   };
   return (
-    <div className='flex space-x-3 mt-2'>
+    <div className='flex space-x-3'>
       <p
         className={`${searchType === '' ? 'nav-link-active' : 'nav-link'}`}
         onClick={switchSearchType}>
