@@ -17,7 +17,7 @@ const User = () => {
     );
   }
   return (
-    <button className='text-white text-base font-semibold bg-blue-500 px-3 py-1 rounded-md hover:ring transition-all duration-150' onClick={() => router.push('/auth/signin')}>
+    <button className='text-white text-base font-semibold bg-blue-500 px-4 py-2 rounded-md hover:ring transition-all duration-150' onClick={() => router.push('/auth/signin')}>
       Sign In
     </button>
   );

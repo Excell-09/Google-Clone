@@ -9,7 +9,6 @@ const Search = ({ data }) => {
   const router = useRouter();
   const [query, setQuery] = useState('');
   useEffect(() => setQuery(router.query), [router]);
-  console.log(data);
   return (
     <>
       <SearchHeader queryValue={query} />

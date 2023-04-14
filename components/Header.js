@@ -8,7 +8,9 @@ const Header = () => {
         <Link href='https://about.google/' className='link'>
           About
         </Link>
-        <Link href='https://store.google.com/us/?pli=1&hl=en-US' className='link'>
+        <Link
+          href='https://store.google.com/us/?pli=1&hl=en-US'
+          className='link hidden sm:inline-block'>
           Store
         </Link>
       </div>
@@ -16,7 +18,9 @@ const Header = () => {
         <Link href='https://mail.google.com/mail/u/0/#inbox' className='link'>
           Gmail
         </Link>
-        <Link href={`/search?q=google&searchType=image&start=10`} className='link'>
+        <Link
+          href={`/search?q=google&searchType=image&start=10`}
+          className='link hidden sm:inline-block'>
           Images
         </Link>
         <User />

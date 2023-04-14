@@ -77,7 +77,9 @@ const SearchHeader = ({ queryValue }) => {
             <SearchHeaderOptions searchType={queryValue.searchType} queryType={queryValue.q} />
           </div>
         </div>
-        <User />
+        <div className='mt-3'>
+          <User />
+        </div>
       </div>
       <AnimatePresence>
         {nav && (
@@ -133,7 +135,9 @@ const SearchHeader = ({ queryValue }) => {
           <div className='max-w-[70px] h-auto cursor-pointer' onClick={() => router.push('/')}>
             <Image src={logo} loading='lazy' alt='logo' />
           </div>
-          <User />
+          <div className='my-3'>
+            <User />
+          </div>
         </div>
         <div className='flex-1 w-full'>
           <div className='flex items-center border-2 px-5 py-2 shadow-md rounded-full'>
