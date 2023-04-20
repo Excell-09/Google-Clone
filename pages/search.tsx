@@ -38,9 +38,13 @@ const Search = ({ data }: Props) => {
                 <div className='group' key={item.title}>
                   <a
                     className='group-hover:underline group-hover:text-blue-500 transition-all duration-150'
-                    href={item?.image?.contextLink || ""}>
+                    href={item?.image?.contextLink || ''}>
                     <div className='max-h-[200px] w-full overflow-hidden'>
-                      <img src={item.link} alt={item.title} className=' h-full w-full object-cover' />
+                      <img
+                        src={item.link}
+                        alt={item.title}
+                        className=' h-full w-full object-cover'
+                      />
                     </div>
                     <div>
                       <p className=' truncate'>{item.displayLink}</p>
@@ -57,7 +61,7 @@ const Search = ({ data }: Props) => {
         ) : (
           <>
             <p className='col-span-full text-gray-500 text-sm sm:col-start-2 sm:col-end-13 mt-1 mb-2'>
-              About {data.searchInformation.formattedTotalResults} results
+              About {data.searchInformation.formattedTotalResults} results{' '}
               {data.searchInformation.formattedSearchTime} seconds
             </p>
             <div className='col-span-full sm:col-start-2 sm:col-end-10'>
