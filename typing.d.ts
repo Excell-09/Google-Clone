@@ -1,20 +1,12 @@
-// export interface Url {
-//   type: string;
-//   template: string;
-// }
-// export interface Queries {
-//   queries:{
-
 import { ParsedUrlQuery } from 'querystring';
-
-//   }
-// }
-// export interface Context {}
 
 interface CustomParsedUrlQuery {
   q: string;
   searchType: string;
   start: string;
+}
+interface Image {
+  contextLink:string;
 }
 
 export interface SearchInformation {
@@ -23,16 +15,18 @@ export interface SearchInformation {
   totalResults: string;
   formattedTotalResults: string;
 }
+
 export interface Item {
   title: string;
   kind: string;
   htmlTitle: string;
-  link: number;
-  displayLink: number;
+  link: string;
+  displayLink: string;
   snippet: string;
   htmlSnippet: string;
   formattedUrl: string;
   htmlFormattedUrl: string;
+  image: Image;
 }
 
 export interface ResultGoogle {

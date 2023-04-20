@@ -15,7 +15,6 @@ import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CustomParsedUrlQuery } from '../typing';
 
-
 interface Props {
   queryValue: CustomParsedUrlQuery;
 }
@@ -25,17 +24,24 @@ const SearchHeader = ({ queryValue }: Props) => {
   const router = useRouter();
   const [nav, setNav] = useState<boolean>(false);
 
-
   useEffect(() => setQuery(queryValue.q || ''), [queryValue]);
 
   const handleEnter: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter') {
-      router.push(`/search?q=${query.trim()}&searchType=&start=10`);
+      router.push(
+        `/search?q=${query.trim()}${
+          queryValue.searchType ? '&searchType=image' : '&searchType='
+        }&start=10`
+      );
     }
   };
   const handleSubmit: MouseEventHandler<SVGSVGElement> = (e) => {
     e.preventDefault();
-    router.push(`/search?q=${query.trim()}&searchType=&start=10`);
+    router.push(
+      `/search?q=${query.trim()}${
+        queryValue.searchType ? '&searchType=image' : '&searchType='
+      }&start=10`
+    );
   };
 
   useEffect(() => {

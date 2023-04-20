@@ -26,6 +26,7 @@ const Search = ({ data }: Props) => {
   );
 
   useEffect(() => setQuery(router.query), [router]);
+
   return (
     <>
       <SearchHeader queryValue={query} />
@@ -36,11 +37,15 @@ const Search = ({ data }: Props) => {
               {data.items.map((item) => (
                 <div className='group' key={item.title}>
                   <a
-                    className=' group-hover:underline group-hover:text-blue-500 transition-all duration-150'
-                    href={item.formattedUrl}>
-                    <div className='w-[200px] h-[200px] bg-red-500'></div>
-                    <p className=' truncate'>{item.displayLink}</p>
-                    <p className=' truncate'>{item.title}</p>
+                    className='group-hover:underline group-hover:text-blue-500 transition-all duration-150'
+                    href={item.image.contextLink}>
+                    <div className='max-h-[200px] w-full overflow-hidden'>
+                      <img src={item.link} alt={item.title} className=' h-full w-full object-cover' />
+                    </div>
+                    <div>
+                      <p className=' truncate'>{item.displayLink}</p>
+                      <p className=' truncate'>{item.title}</p>
+                    </div>
                   </a>
                 </div>
               ))}
@@ -86,11 +91,11 @@ const Search = ({ data }: Props) => {
 
 export default Search;
 
-interface customGetServerSidePropsContenxt extends GetServerSidePropsContext {
+interface customGetServerSidePropsContext extends GetServerSidePropsContext {
   searchType: string;
 }
 
-export const getServerSideProps = async (context: customGetServerSidePropsContenxt) => {
+export const getServerSideProps = async (context: customGetServerSidePropsContext) => {
   let data: any;
   const development = false;
   const startIndex = context.query.start || 10;
@@ -101,7 +106,9 @@ export const getServerSideProps = async (context: customGetServerSidePropsConten
       : await fetch(
           `https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_API_KEY}&cx=${
             process.env.CX_KEY
-          }&q=${context.query.q}${context.searchType && '&searchType='}&start=${startIndex}`
+          }&q=${context.query.q}${
+            context.query.searchType && '&searchType=image'
+          }&start=${startIndex}`
         )
           .then((res) => res.json())
           .catch(() => (data = dummyResponse as any));
