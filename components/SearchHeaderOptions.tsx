@@ -2,7 +2,12 @@ import { MagnifyingGlassIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-const SearchHeaderOptions = ({ searchType, queryType }) => {
+interface Props {
+  searchType: string;
+  queryType: string;
+}
+
+const SearchHeaderOptions = ({ searchType, queryType }: Props) => {
   const router = useRouter();
   const switchSearchType = () => {
     router.push(`/search?q=${queryType}&searchType=${searchType === '' ? 'image' : ''}&start=10`);

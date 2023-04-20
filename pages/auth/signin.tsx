@@ -1,16 +1,19 @@
 import React from 'react';
 import { getProviders, signIn } from 'next-auth/react';
-import Header from '@/components/Header';
+import Header from '../../components/Header';
 import Image from 'next/image';
-import logo from '@/public/google-logo.webp';
-import logoG from '@/public/g-logo.webp';
+import logo from '../../public/google-logo.webp';
+import logoG from '../../public/g-logo.webp';
+import { getServerSession } from 'next-auth';
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { authOptions } from '../api/auth/[...nextauth]';
 
-const signin = ({ provider }) => {
+const Home = ({ providers }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
       <Header />
       <main className='min-h-screen flex justify-center items-center px-3 overflow-hidden'>
-        {Object.values(provider).map((provider) => (
+        {Object.values(providers).map((provider) => (
           <section key={provider.id} className='flex justify-center items-center flex-col'>
             <div className='max-w-[300px] h-auto'>
               <Image src={logo} loading='lazy' alt='logo' />
@@ -29,11 +32,16 @@ const signin = ({ provider }) => {
   );
 };
 
-export default signin;
+export default Home;
 
-export const getServerSideProps = async () => {
-  const provider = await getProviders();
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (session) {
+    return { redirect: { destination: '/' } };
+  }
+  const providers = await getProviders();
   return {
-    props: { provider },
+    props: { providers: providers ?? [] },
   };
 };

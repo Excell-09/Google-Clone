@@ -1,4 +1,5 @@
-const randomWord = async (callback) => {
+type Callback = (result: string) => void;
+const randomWord = async (callback: Callback) => {
   let result = 'Google';
   try {
     const response = await fetch('https://random-word-api.vercel.app/api?words=1');

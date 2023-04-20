@@ -1,27 +1,25 @@
-import Header from '@/components/Header';
-import logo from '@/public/google-logo.webp';
+import Header from '../components/Header';
+import logo from '../public/google-logo.webp';
 import Image from 'next/image';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { MicrophoneIcon } from '@heroicons/react/24/solid';
-import { useRef } from 'react';
+import { KeyboardEventHandler, MouseEventHandler, MutableRefObject, useRef } from 'react';
 import { useRouter } from 'next/router';
-import randomWord from '@/utils/randomWord';
+import randomWord from '../utils/randomWord';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { dummyResponse } from '@/dummyData';
 
 export default function Home() {
   const yearNow = new Date().getFullYear();
-  const searchInputRef = useRef();
+  const searchInputRef: MutableRefObject<HTMLInputElement> = useRef(null!);
   const router = useRouter();
-  const [randomW, setRandomW] = useState('Google');
+  const [randomW, setRandomW] = useState<string>('Google');
 
   useEffect(() => {
     randomWord((res) => setRandomW(res));
   }, []);
 
-
-  const search = (e) => {
+  const search: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     const searchInput = searchInputRef.current.value;
     if (searchInput) {
@@ -30,7 +28,7 @@ export default function Home() {
       router.push(`/search?q=${randomW}&searchType=&start=10`);
     }
   };
-  const searchEnter = (e) => {
+  const searchEnter:KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter') {
       const searchInput = searchInputRef.current.value;
       router.push(`/search?q=${searchInput.trim()}&searchType=&start=10`);

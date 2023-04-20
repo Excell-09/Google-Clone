@@ -1,13 +1,30 @@
-import SearchHeader from '@/components/SearchHeader';
-import { useRouter } from 'next/router';
+import SearchHeader from '../components/SearchHeader';
+import { NextRouter, useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { dummyResponse } from '@/dummyData';
+import { dummyResponse } from '../dummyData';
 import Parser from 'html-react-parser';
-import PaginationButton from '@/components/PaginationButton';
+import PaginationButton from '../components/PaginationButton';
+import { GetServerSidePropsContext } from 'next';
+import { CustomParsedUrlQuery, ResultGoogle } from '../typing';
 
-const Search = ({ data }) => {
-  const router = useRouter();
-  const [query, setQuery] = useState('');
+type Props = {
+  data: ResultGoogle;
+};
+
+interface CustomNextRouter extends NextRouter {
+  query: {
+    q: string;
+    searchType: string;
+    start: string;
+  };
+}
+
+const Search = ({ data }: Props) => {
+  const router = useRouter() as CustomNextRouter;
+  const [query, setQuery] = useState<CustomParsedUrlQuery>(
+    router.query || { q: '', searchType: '', start: '10' }
+  );
+
   useEffect(() => setQuery(router.query), [router]);
   return (
     <>
@@ -69,9 +86,13 @@ const Search = ({ data }) => {
 
 export default Search;
 
-export const getServerSideProps = async (context) => {
-  let data = [];
-  const development = true;
+interface customGetServerSidePropsContenxt extends GetServerSidePropsContext {
+  searchType: string;
+}
+
+export const getServerSideProps = async (context: customGetServerSidePropsContenxt) => {
+  let data: any;
+  const development = false;
   const startIndex = context.query.start || 10;
 
   try {
@@ -83,7 +104,7 @@ export const getServerSideProps = async (context) => {
           }&q=${context.query.q}${context.searchType && '&searchType='}&start=${startIndex}`
         )
           .then((res) => res.json())
-          .catch(() => (data = dummyResponse));
+          .catch(() => (data = dummyResponse as any));
   } catch (error) {
     data = dummyResponse;
   }

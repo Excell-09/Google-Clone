@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import React from 'react';
-import logo from '@/public/google-logo.webp';
+import React, { KeyboardEventHandler, MouseEventHandler } from 'react';
+import logo from '../public/google-logo.webp';
 import {
   MagnifyingGlassIcon,
   Bars3Icon,
@@ -13,18 +13,27 @@ import { useRouter } from 'next/router';
 import SearchHeaderOptions from './SearchHeaderOptions';
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CustomParsedUrlQuery } from '../typing';
 
-const SearchHeader = ({ queryValue }) => {
-  const [query, setQuery] = useState(queryValue.q || '');
+
+interface Props {
+  queryValue: CustomParsedUrlQuery;
+}
+
+const SearchHeader = ({ queryValue }: Props) => {
+  const [query, setQuery] = useState<string>(queryValue.q || '');
   const router = useRouter();
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState<boolean>(false);
+
+
   useEffect(() => setQuery(queryValue.q || ''), [queryValue]);
-  const handleEnter = (e) => {
+
+  const handleEnter: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter') {
       router.push(`/search?q=${query.trim()}&searchType=&start=10`);
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit: MouseEventHandler<SVGSVGElement> = (e) => {
     e.preventDefault();
     router.push(`/search?q=${query.trim()}&searchType=&start=10`);
   };
@@ -45,7 +54,7 @@ const SearchHeader = ({ queryValue }) => {
 
       <div className='hidden sm:grid grid-cols-12 sm:space-x-3 space-x-1'>
         <div
-          className=' col-span-1 max-w-[100px] h-auto cursor-pointer mt-2'
+          className='col-span-1 max-w-[100px] h-auto cursor-pointer mt-2'
           onClick={() => router.push('/')}>
           <Image src={logo} loading='lazy' alt='logo' />
         </div>
@@ -132,7 +141,7 @@ const SearchHeader = ({ queryValue }) => {
       <div className='sm:hidden sticky top-0 w-full left-0 flex-col flex items-center sm:space-x-3 space-x-1'>
         <div className='flex items-center justify-between flex-1 w-full'>
           <Bars3Icon className='w-7 h-7 cursor-not-allowed' />
-          <div className='max-w-[70px] h-auto cursor-pointer' onClick={() => router.push('/')}>
+          <div className='max-w-[100px] h-auto cursor-pointer' onClick={() => router.push('/')}>
             <Image src={logo} loading='lazy' alt='logo' />
           </div>
           <div className='my-3'>
