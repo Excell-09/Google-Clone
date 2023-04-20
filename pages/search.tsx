@@ -38,7 +38,7 @@ const Search = ({ data }: Props) => {
                 <div className='group' key={item.title}>
                   <a
                     className='group-hover:underline group-hover:text-blue-500 transition-all duration-150'
-                    href={item.image.contextLink}>
+                    href={item?.image?.contextLink || ""}>
                     <div className='max-h-[200px] w-full overflow-hidden'>
                       <img src={item.link} alt={item.title} className=' h-full w-full object-cover' />
                     </div>
