@@ -34,21 +34,21 @@ const Search = ({ data }: Props) => {
         <title>Result Search</title>
       </Head>
       <SearchHeader queryValue={query} />
-      <main className='grid grid-cols-12 m-3'>
+      <main className=' m-3 grid grid-cols-12'>
         {query.searchType === 'image' ? (
           <>
-            <div className='col-span-full grid sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4'>
+            <div className='col-span-full sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
               {data.items === undefined ? (
-                <div className='min-h-[60vh]'>
+                <div className='min-h-[65vh] col-span-full'>
                   <p className='text-center'>{"There's no any result"}</p>
                 </div>
               ) : (
                 data.items.map((item) => (
                   <div className='group' key={item.title}>
                     <a
-                      className='group-hover:underline group-hover:text-blue-500 transition-all duration-150'
+                      className='group-hover:underline block group-hover:text-blue-500 transition-all duration-150'
                       href={item?.image?.contextLink || ''}>
-                      <div className='max-h-[200px] w-full overflow-hidden'>
+                      <div className='max-h-[200px] overflow-hidden'>
                         <img
                           src={item.link}
                           alt={item.title}
@@ -72,12 +72,12 @@ const Search = ({ data }: Props) => {
         ) : (
           <>
             <p className='col-span-full text-gray-500 text-sm sm:col-start-2 sm:col-end-13 mt-1 mb-2'>
-              About {data.searchInformation.formattedTotalResults} results{' '}
-              {data.searchInformation.formattedSearchTime} seconds
+              About {data?.searchInformation?.formattedTotalResults || 0} results{' '}
+              {data?.searchInformation?.formattedSearchTime || 0} seconds
             </p>
             <div className='col-span-full sm:col-start-2 sm:col-end-10'>
               {data?.items === undefined ? (
-                <div className='min-h-[60vh]'>
+                <div className='min-h-[65vh]'>
                   <p className='text-center'>{"There's no any result"}</p>
                 </div>
               ) : (
@@ -118,11 +118,11 @@ interface customGetServerSidePropsContext extends GetServerSidePropsContext {
 
 export const getServerSideProps = async (context: customGetServerSidePropsContext) => {
   let data: any;
-  const development = false;
+  const isDummyDataActive = false;
   const startIndex = context.query.start || 10;
 
   try {
-    data = development
+    data = isDummyDataActive
       ? dummyResponse
       : await fetch(
           `https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_API_KEY}&cx=${
@@ -136,7 +136,7 @@ export const getServerSideProps = async (context: customGetServerSidePropsContex
   } catch (error) {
     data = dummyResponse;
   }
-
+  console.log(data)
   return {
     props: { data },
   };

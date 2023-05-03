@@ -58,13 +58,13 @@ const SearchHeader = ({ queryValue }: Props) => {
     <header className=' sm:px-5 sm:py-3 px-2 py-1 border-b-[1px] border-b-gray-300'>
       {/* large screen */}
 
-      <div className='hidden sm:grid grid-cols-12 sm:space-x-3 space-x-1'>
+      <div className='hidden sm:flex sm:space-x-3 space-x-1 w-full'>
         <div
-          className='col-span-1 max-w-[100px] h-auto cursor-pointer mt-2'
+          className='max-w-[100px] h-auto cursor-pointer mt-2'
           onClick={() => router.push('/')}>
           <Image src={logo} loading='lazy' alt='logo' />
         </div>
-        <div className='col-span-10 '>
+        <div className='flex-1'>
           <div className='flex items-center border-2 px-5 py-2 shadow-md rounded-full max-w-3xl'>
             <input
               className=' focus:outline-none flex-1 w-full'
@@ -92,7 +92,7 @@ const SearchHeader = ({ queryValue }: Props) => {
             <SearchHeaderOptions searchType={queryValue.searchType} queryType={queryValue.q} />
           </div>
         </div>
-        <div className='mt-3'>
+        <div className='mt-2'>
           <User />
         </div>
       </div>
@@ -107,13 +107,13 @@ const SearchHeader = ({ queryValue }: Props) => {
               closed: { translateY: '-100px' },
             }}
             transition={{ duration: 0.3 }}
-            className={` border-b-2 bg-white sm:grid fixed top-0 w-full left-0 sm:grid-cols-12 sm:space-x-3 space-x-1 px-5 py-2 hidden`}>
+            className={`border-b-2 bg-white sm:flex fixed top-0 w-full left-0 sm:space-x-3 space-x-1 px-5 py-2 hidden`}>
             <div
-              className=' col-span-1 max-w-[100px] h-auto cursor-pointer mt-2'
+              className='max-w-[100px] h-auto cursor-pointer mt-2'
               onClick={() => router.push('/')}>
               <Image src={logo} loading='lazy' alt='logo' />
             </div>
-            <div className='col-span-10 '>
+            <div className='flex-1'>
               <div className='flex items-center border-2 px-5 py-2 shadow-md rounded-full max-w-3xl'>
                 <input
                   className=' focus:outline-none flex-1 w-full'
@@ -147,7 +147,7 @@ const SearchHeader = ({ queryValue }: Props) => {
       <div className='sm:hidden sticky top-0 w-full left-0 flex-col flex items-center sm:space-x-3 space-x-1'>
         <div className='flex items-center justify-between flex-1 w-full'>
           <Bars3Icon className='w-7 h-7 cursor-not-allowed' />
-          <div className='max-w-[100px] h-auto cursor-pointer' onClick={() => router.push('/')}>
+          <div className='max-w-[110px] h-auto cursor-pointer' onClick={() => router.push('/')}>
             <Image src={logo} loading='lazy' alt='logo' />
           </div>
           <div className='my-3'>
