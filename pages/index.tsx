@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import randomWord from '../utils/randomWord';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Head from 'next/head';
 
 export default function Home() {
   const yearNow = new Date().getFullYear();
@@ -27,16 +28,22 @@ export default function Home() {
     } else {
       router.push(`/search?q=${randomW}&searchType=&start=10`);
     }
+    return;
   };
-  const searchEnter:KeyboardEventHandler<HTMLInputElement> = (e) => {
+
+  const searchEnter: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter') {
       const searchInput = searchInputRef.current.value;
       router.push(`/search?q=${searchInput.trim()}&searchType=&start=10`);
     }
+    return;
   };
 
   return (
     <>
+      <Head>
+        <title>Google Clone</title>
+      </Head>
       <Header />
       <main className='min-h-screen grid grid-cols-10 px-3'>
         <section className='flex justify-center items-center flex-col space-y-6 sm:col-start-3 sm:col-end-9 col-start-1 col-end-11 '>

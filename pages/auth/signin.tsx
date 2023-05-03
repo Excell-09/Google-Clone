@@ -7,10 +7,14 @@ import logoG from '../../public/g-logo.webp';
 import { getServerSession } from 'next-auth';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { authOptions } from '../api/auth/[...nextauth]';
+import Head from 'next/head';
 
 const Home = ({ providers }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
+      <Head>
+        <title>Sign in</title>
+      </Head>
       <Header />
       <main className='min-h-screen flex justify-center items-center px-3 overflow-hidden'>
         {Object.values(providers).map((provider) => (
